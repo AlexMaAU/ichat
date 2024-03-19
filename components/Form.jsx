@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { signIn } from "next-auth/react";
 
 const Form = ({ type }) => {
   const {
@@ -36,6 +37,24 @@ const Form = ({ type }) => {
 
       if (res.error) {
         toast.error("Something went wrong");
+      }
+    }
+
+    if (type === "login") {
+      // Note: 使用NextAuth进行用户身份验证
+      // 在login页面或者组件中，导入import { signIn } from "next-auth/react"
+      // 调用signIn(provider_name, credential_data)进行验证，credential_data会自动传递到app/api/auth/[...nextauth]/route.js
+      const res = await signIn("credentials", {
+        ...data,
+        redirect: false,
+      });
+
+      if (res.ok) {
+        router.push("/chats");
+      }
+
+      if (res.error) {
+        toast.error("Invalid email or password");
       }
     }
   };
