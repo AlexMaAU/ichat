@@ -54,6 +54,7 @@ const Form = ({ type }) => {
       }
 
       if (res.error) {
+        // 用toast.error打印出错误消息
         toast.error("Invalid email or password");
       }
     }

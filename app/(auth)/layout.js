@@ -13,6 +13,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${inter.className} bg-purple-1`}>
+        {/* Layout中导入ToasterContext就可以实现react-hot-toast */}
         <ToasterContext />
         {children}
       </body>
