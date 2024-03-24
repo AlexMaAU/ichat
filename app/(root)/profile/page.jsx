@@ -41,13 +41,31 @@ const Profile = () => {
     setValue("profileImage", result?.info?.secure_url);
   };
 
+  const updateUser = async (data) => {
+    setLoading(true);
+    try {
+      const res = await fetch(`/api/users/${user._id}/update`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      setLoading(false);
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return loading ? (
     <Loader />
   ) : (
     <div className="profile-page">
       <h1 className="text-heading3-bold">Edit Your Profile</h1>
 
-      <form className="edit-profile">
+      <form className="edit-profile" onSubmit={handleSubmit(updateUser)}>
         <div className="input">
           {/* register 函数是 react-hook-form 库提供的一个函数，用于在表单中注册输入字段，并指定其验证规则。
             当你调用 register 函数时，它会返回一个对象，这个对象包含了一些属性和方法，用于管理表单字段的状态和验证规则。
@@ -67,6 +85,9 @@ const Profile = () => {
           />
           <PersonOutline sx={{ color: "#737373" }} />
         </div>
+        {error?.username && (
+          <p className="text-red-500">{error.username.message}</p>
+        )}
 
         {/* cloudinary自带的API，点击后会打开图片上传界面 */}
         <CldUploadButton
