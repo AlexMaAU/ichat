@@ -2,6 +2,10 @@ import User from "@/models/User";
 import { connectToDB } from "@/mongodb";
 import { hash } from "bcryptjs";
 
+// api/auth是用于处理API路由，而不是页面路由
+// [...nextauth]表示动态路由，任何发送到 /api/auth 及其子路径的请求都会被该文件处理
+
+// for user signup
 export const POST = async (req, res) => {
   try {
     await connectToDB();
@@ -36,4 +40,3 @@ export const POST = async (req, res) => {
     });
   }
 };
-

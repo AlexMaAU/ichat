@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "../globals.css";
 import ToasterContext from "@/components/ToastContext";
+import Provider from "@/components/Provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,8 +15,10 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${inter.className} bg-purple-1`}>
         {/* Layout中导入ToasterContext就可以实现react-hot-toast */}
-        <ToasterContext />
-        {children}
+        <Provider>
+          <ToasterContext />
+          {children}
+        </Provider>
       </body>
     </html>
   );

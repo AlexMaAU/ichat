@@ -113,11 +113,8 @@ const Form = ({ type }) => {
                 {...register("password", {
                   required: "Password is required",
                   validate: (value) => {
-                    if (
-                      value.length < 5 ||
-                      !value.match(/[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/)
-                    ) {
-                      return "Password must be at least 5 characters and contain at least one special character";
+                    if (value.length < 5) {
+                      return "Password must be at least 5 characters";
                     }
                   },
                 })}
